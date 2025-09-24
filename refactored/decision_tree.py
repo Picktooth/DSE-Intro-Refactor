@@ -17,6 +17,15 @@ if __name__ == '__main__':
 
     """
     Main script to load data, build tree, predict, prune, and evaluate
+    
+    Usage: python decision_tree.py <dataset_prefix> [max_depth] [threshold] [min_split_size] [verbose]
+    - dataset_prefix: Prefix for dataset files (e.g., 'dataset' for 'dataset_train.tsv' and 'dataset_val.tsv')
+    - max_depth: Maximum depth of the tree (default: None for unlimited)
+    - threshold: Minimum information gain required to split (default: 0.0)
+    - min_split_size: Minimum number of samples required to split (default: 0)
+    - verbose: Verbosity flag (Bool, default: False)
+    
+    At minimum, provide dataset prefix as command line argument.
     """
     # Loading paths
     ROOT_ = os.getcwd()
