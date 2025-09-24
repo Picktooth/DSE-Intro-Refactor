@@ -1,0 +1,6 @@
+# Python version
+python>=3.9
+
+# Core libraries
+pandas>=1.5.3
+numpy>=1.23.5
