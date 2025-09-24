@@ -5,14 +5,21 @@ Refactoring an assignment I recently submitted for COSC 522. The original versio
 
 Some folders are automatically created so if you plan to run the refactored code, make sure you're cd'd into the project directory.
 
-Usage: python decision_tree.py <dataset_prefix> [max_depth] [threshold] [min_split_size] [verbose]
-    - dataset_prefix: Prefix for dataset files (e.g., 'dataset' for 'dataset_train.tsv' and 'dataset_val.tsv')
-    - max_depth: Maximum depth of the tree (default: None for unlimited)
-    - threshold: Minimum information gain required to split (default: 0.0)
-    - min_split_size: Minimum number of samples required to split (default: 0)
-    - verbose: Verbosity flag (Bool, default: False)
-    
-    At minimum, provide dataset prefix as command line argument.
+## Usage
+
+```bash
+python decision_tree.py <dataset_prefix> [max_depth] [threshold] [min_split_size] [verbose]
+```
+
+**Arguments:**
+
+- `<dataset_prefix>`: Prefix for dataset files (e.g., `dataset` for `dataset_train.tsv` and `dataset_val.tsv`) **(required)**
+- `[max_depth]`: Maximum depth of the tree (default: `None` for unlimited)
+- `[threshold]`: Minimum information gain required to split (default: `0.0`)
+- `[min_split_size]`: Minimum number of samples required to split (default: `0`)
+- `[verbose]`: Verbosity flag (`True`/`False`, default: `False`)
+
+At minimum, provide the dataset prefix as a command-line argument.
 
 Below is a breakdown of key differences between the original and refactored versions of my assignment. Generated using GPT 4.1 and revised by me.
 
