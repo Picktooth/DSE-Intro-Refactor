@@ -10,6 +10,8 @@ from modules import (
     calc_error_rate,
     grab_val_indices,
     error_prune,
+    optim_threshold,
+    optim_min_split_size
 )
 
 if __name__ == '__main__':
@@ -144,89 +146,28 @@ if __name__ == '__main__':
     Below you'll find code snippets for finding optimal hyperparameters
     """
     
-    """
-    Uncomment below to run threshold optimization
-    """
-    
     # Designing thresholds from 0.0 to 1.0 with step size of 0.01
     thresholds = np.arange(0.0, 1, 0.01)
     
-    # Bookkeeping for best threshold and accuracy
-    best_accuracy = 0.0
-    best_threshold = 0.0
-    
-    # For each threshold...
-    for threshold in thresholds:
-
-            # Build tree with threshold
-            tree = build_tree(train_data, max_depth=MAX_DEPTH, split_threshold=threshold)
-            
-            # Predictions on validation set and save to file
-            val_predictions = predict_df(tree, val_data)
-            val = val_data.copy()
-            val['predictions'] = val_predictions
-            
-            # Feed dataframe with val predictions, name of target column, and name of prediction column to calculate error rate
-            val_error_rate = calc_error_rate(
-                val,
-                target=val_data.columns[-1],
-                prediction='predictions'
-            )
-
-            val_error_rate = val_error_rate * 100
-            val_accuracy = (100 - val_error_rate)
-        
-            # If accuracy is best so far... store accuracy and threshold
-            if val_accuracy > best_accuracy:
-                best_accuracy = val_accuracy
-                best_threshold = threshold
-            
-            # Else, if accuracy ties best but threshold is smaller... store threshold
-            elif val_accuracy == best_accuracy and threshold < best_threshold:
-                best_threshold = threshold
-                
-    """
-    Uncomment below to run min_split_size optimization
-    """                
+    # Run function to find best threshold in range
+    best_threshold, best_accuracy_thresh = optim_threshold(
+        thresholds,
+        train_data,
+        val_data,
+        MAX_DEPTH=MAX_DEPTH
+    )
+       
     
     # Designating split sizes from 0 to len(train_data) with step size of 1
     min_split_sizes = np.arange(0, len(train_data), 1)
     
-    # Bookkeeping for best min split size and accuracy
-    best_accuracy = 0.0
-    best_min_split_size = 0
+    # Run function to find best min split size in range
+    best_mss, best_accuracy_mss = optim_min_split_size(
+        min_split_sizes,
+        train_data,
+        val_data,
+        MAX_DEPTH=MAX_DEPTH
+    )
 
-    # For each min split size...
-    for min_split_size in min_split_sizes:
-
-            # Build tree with min split size
-            tree = build_tree(train_data, max_depth=MAX_DEPTH, min_split_size=min_split_size)
-            # Predictions on validation set and save to file
-            val_predictions = predict_df(tree, val_data)
-            val = val_data.copy()
-            val['predictions'] = val_predictions
-            
-            # Feed dataframe with val predictions, name of target column, and name of prediction column to calculate error rate
-            val_error_rate = calc_error_rate(
-                val,
-                target=val_data.columns[-1],
-                prediction='predictions'
-            )
-
-            val_error_rate = val_error_rate * 100
-            val_accuracy = (100 - val_error_rate)
-        
-            # If accuracy is best so far... store accuracy and threshold
-            if val_accuracy > best_accuracy:
-                best_accuracy = val_accuracy
-                best_min_split_size = min_split_size
-
-            # Else, if accuracy ties best but min split size is smaller... store min split size
-            elif val_accuracy == best_accuracy and min_split_size < best_min_split_size:
-                best_min_split_size = min_split_size
-                
-    print(f"\nBest threshold: {best_threshold} w/ accuracy: {best_accuracy:.2f}%")
-    print(f"Best min split size: {best_min_split_size} w/ accuracy: {best_accuracy:.2f}%\n")
-
-                
-                
+    print(f"\nBest threshold: {best_threshold} w/ accuracy: {best_accuracy_thresh:.2f}%")
+    print(f"Best min split size: {best_mss} w/ accuracy: {best_accuracy_mss:.2f}%\n")

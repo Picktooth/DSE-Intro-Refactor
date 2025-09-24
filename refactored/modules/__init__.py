@@ -13,5 +13,7 @@ from modules.func_tree import (
 )
 
 from modules.func_utils import (
-    load_data
+    load_data,
+    optim_threshold,
+    optim_min_split_size
 )
