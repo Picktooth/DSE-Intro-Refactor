@@ -38,7 +38,11 @@ def optim_threshold(
     val_data: pd.DataFrame,
     MAX_DEPTH: Optional[int] = None
 ):
-    
+
+    """
+    Return the optimal threshold value for the decision tree's splitting.
+    """
+
     # Bookkeeping for best threshold and accuracy
     best_accuracy = 0.0
     best_threshold = 0.0
@@ -81,6 +85,11 @@ def optim_min_split_size(
     val_data: pd.DataFrame,
     MAX_DEPTH: Optional[int] = None
 ):
+    
+    """
+    Return the optimal minimum split size for the decision tree's splitting.
+    """
+
     # Bookkeeping for best min split size and accuracy
     best_accuracy = 0.0
     best_min_split_size = 0
