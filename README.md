@@ -62,5 +62,5 @@ Below is a breakdown of key differences between the original and refactored vers
 
 **Summary:**
 
-The refactored version is easier to read, maintain, and extend. It follows best practices for Python project structure, making it more suitable for future development or adaptation to new tasks.
+The refactored version is easier to read, maintain, and extend. It follows best practices for Python project structure, making it more suitable for future development or adaptation to new tasks. Anyone looking to look through these files should have a good idea of what it was I was trying to do and I should be able to come back to this some years down the line and understand what I was doing.
 
